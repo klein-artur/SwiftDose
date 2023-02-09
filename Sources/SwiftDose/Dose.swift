@@ -8,14 +8,25 @@
 import Foundation
 
 @propertyWrapper
-public struct Dose<T> {
-    private let keyPath: WritableKeyPath<DoseValues, T>
+public class Dose<T, K> where K: DoseKey, T == K.Value {
+    private let keyPath: WritableKeyPath<DoseValues, K>
+    
+    private var savedValue: T? = nil
+    
     public var wrappedValue: T {
-        get { DoseValues[keyPath] }
-        set { DoseValues[keyPath] = newValue }
+        get {
+            let provider: K = DoseValues[keyPath]
+            if provider is (any InstanceProvider) {
+                savedValue = savedValue ?? provider.get()
+                return savedValue!
+            } else {
+                return provider.get()
+            }
+        }
+        set { DoseValues[keyPath].set(value: newValue) }
     }
     
-    public init(_ keyPath: WritableKeyPath<DoseValues, T>) {
+    public init(_ keyPath: WritableKeyPath<DoseValues, K>) {
         self.keyPath = keyPath
     }
 }

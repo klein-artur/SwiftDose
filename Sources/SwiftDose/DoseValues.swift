@@ -15,12 +15,12 @@ public struct DoseValues {
     
     /// A static subscript for updating the `currentValue` of `DoseKey` instances.
     public static subscript<K>(key: K.Type) -> K.Value where K : DoseKey {
-        get { key.currentValue }
-        set { key.currentValue = newValue }
+        get { key.value }
+        set { key.value = newValue }
     }
     
     /// A static subscript accessor for updating and references dependencies directly.
-    public static subscript<T>(_ keyPath: WritableKeyPath<DoseValues, T>) -> T {
+    public static subscript<T, K>(_ keyPath: WritableKeyPath<DoseValues, K>) -> K where K: DoseKey, T == K.Value {
         get { current[keyPath: keyPath] }
         set { current[keyPath: keyPath] = newValue }
     }
