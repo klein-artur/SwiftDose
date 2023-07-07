@@ -13,16 +13,16 @@ public protocol DoseKey {
     associatedtype Value
     
     /// The default value for the dependency injection key.
-    static var value: Self.Value { get set }
+    var value: Self.Value { get set }
     
 }
 
 extension DoseKey {
     func get() -> Value {
-        Self.value
+        self.value
     }
     
-    func set(value: Value) {
-        Self.value = value
+    mutating func set(value: Value) {
+        self.value = value
     }
 }
