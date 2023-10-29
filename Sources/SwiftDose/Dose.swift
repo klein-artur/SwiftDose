@@ -26,7 +26,7 @@ public class Dose<K: DoseKey> {
         set { DoseBindings[keyPath].set(value: newValue) }
     }
     
-    public init(_ keyPath: WritableKeyPath<DoseBindings, K>) {
+    public init(of keyPath: WritableKeyPath<DoseBindings, K>) {
         self.keyPath = keyPath
     }
 }
