@@ -38,8 +38,8 @@ Then you can use it everywhere like this:
 
 ```
 class SomeClass {
-    @Dose(\.someSingleton) var theSingleton
-    @Dose(\.someInstance) var theInstance
+    @Dose(of: \.someSingleton) var theSingleton
+    @Dose(of: \.someInstance) var theInstance
 }
 ```
 
